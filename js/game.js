@@ -8,6 +8,7 @@ const showTreeBtn=document.getElementById("showTree");
 let board=Array(9).fill("");
 let playerName="Player";
 let gameActive=false;
+let fullDecisionTree="";
 
 startBtn.addEventListener("click",()=>{
 playerName=playerInput.value.trim()||"Player";
@@ -19,12 +20,13 @@ resetBoard();
 newGameBtn.addEventListener("click",resetBoard);
 
 showTreeBtn.addEventListener("click",()=>{
-showDecisionTree(board);
+alert(fullDecisionTree||"No decision tree generated yet.");
 });
 
 function resetBoard(){
 board=Array(9).fill("");
 boardElement.innerHTML="";
+fullDecisionTree="";
 createBoard();
 gameActive=true;
 }
@@ -57,6 +59,10 @@ aiMove();
 }
 
 function aiMove(){
+const tree=minimaxTree([...board],true,0,-Infinity,Infinity);
+fullDecisionTree+=`\n=== AI TURN DECISION TREE ===\n`;
+fullDecisionTree+=formatTree(tree);
+
 const move=findBestMove(board);
 if(move===-1)return;
 
@@ -72,10 +78,14 @@ function endGame(){
 gameActive=false;
 
 const winner=checkWinner(board);
-let result="Draw";
+let resultText="Draw";
 
-if(winner===HUMAN)result="Win";
-else if(winner===AI)result="Loss";
+if(winner===HUMAN){
+resultText="Player Win";
+}
+else if(winner===AI){
+resultText="AI Win";
+}
 
-saveGameToHistory(playerName,result);
+saveGameToHistory(playerName,resultText,fullDecisionTree);
 }
