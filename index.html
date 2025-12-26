@@ -1,43 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tic-Tac-Toe with Unbeatable AI</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Mastermind | Pro Edition</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
 </head>
-
 <body>
-<h1>Tic-Tac-Toe with Unbeatable AI</h1>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">AI <span>Mastermind</span></div>
+            <div class="player-info">
+                <input type="text" id="playerName" placeholder="Enter Your Name">
+                <button id="startGame">Start Session</button>
+            </div>
+            <div class="history-section">
+                <h3>Game History</h3>
+                <div id="historyList"></div>
+                <button id="clearHistory" class="secondary-btn">Clear History</button>
+            </div>
+        </aside>
 
-<div id="app">
+        <main class="game-area">
+            <div class="status-bar" id="gameStatus">Waiting for player...</div>
+            
+            <div class="board" id="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            
+            <div class="scoreboard">
+                <div class="score-card">
+                    <span class="label">PLAYER (X)</span>
+                    <span id="pScore" class="value">0</span>
+                </div>
+                <div class="score-card">
+                    <span class="label">AI (O)</span>
+                    <span id="aScore" class="value">0</span>
+                </div>
+            </div>
 
-  <div id="player-section">
-    <input type="text" id="playerName" placeholder="Enter your name">
-    <button id="startGame">Start Game</button>
-  </div>
+            <div class="controls">
+                <button id="resetGame">Reset Board</button>
+            </div>
+        </main>
 
-  <div id="game-section" style="display:none;">
-    <div id="board"></div>
-
-    <div id="controls">
-      <button id="newGame">New Game</button>
-      <button id="showTree">Show Decision Tree</button>
+        <section class="ai-insight">
+            <h3>AI Logic (XAI)</h3>
+            <p class="subtitle">Minimax Decision Logs</p>
+            <div id="treeContainer" class="tree-log">AI is offline...</div>
+        </section>
     </div>
-  </div>
 
-  <div id="history-section">
-    <h3>Game History</h3>
-    <ul id="historyList"></ul>
-  </div>
+    <div id="resultModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span id="modalCrossClose" class="close-x">&times;</span>
+            
+            <h2 id="modalWinner">Result</h2>
+            <p id="modalSubText">The game has concluded.</p>
+            
+            <div class="modal-buttons">
+                <button id="modalPlayAgain" class="primary-btn">Play Again</button>
+                <div style="display: flex; gap: 10px; width: 100%;">
+                    <button id="modalViewBoard" class="secondary-btn" style="flex: 1;">View Board</button>
+                    <button id="modalExit" class="exit-btn" style="flex: 1;">Exit Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
-
-<!-- SCRIPT ORDER IS VERY IMPORTANT -->
-<script src="js/ai.js"></script>
-<script src="js/history.js"></script>
-<script src="js/tree.js"></script>
-<script src="js/game.js"></script>
-
+    <script src="js/minimax.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
